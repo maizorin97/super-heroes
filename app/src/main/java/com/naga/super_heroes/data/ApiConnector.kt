@@ -4,7 +4,7 @@
 * Maker Media Group
 */
 
-package com.naga.super_heroes.repository
+package com.naga.super_heroes.data
 
 import com.naga.super_heroes.BuildConfig
 import okhttp3.OkHttpClient

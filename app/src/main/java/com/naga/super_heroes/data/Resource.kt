@@ -1,4 +1,4 @@
-package com.naga.super_heroes.repository
+package com.naga.super_heroes.data
 
 import okhttp3.ResponseBody
 

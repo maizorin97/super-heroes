@@ -1,7 +1,7 @@
-package com.naga.super_heroes.interfaces
+package com.naga.super_heroes.data.interfaces
 
 import com.naga.super_heroes.globals.Globals
-import com.naga.super_heroes.models.Hero
+import com.naga.super_heroes.data.models.Hero
 import retrofit2.http.GET
 import retrofit2.http.Query
 

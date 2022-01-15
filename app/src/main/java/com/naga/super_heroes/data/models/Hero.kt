@@ -1,4 +1,4 @@
-package com.naga.super_heroes.models
+package com.naga.super_heroes.data.models
 
 import com.google.gson.annotations.SerializedName
 
