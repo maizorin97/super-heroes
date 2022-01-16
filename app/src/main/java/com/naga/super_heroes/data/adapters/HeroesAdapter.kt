@@ -47,7 +47,7 @@ class HeroesAdapter(
 
             Glide.with(this.itemView)
                 .asBitmap()
-                .load(hero.url)
+                .load(hero.image.url)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .centerCrop()
                 .into(object : CustomTarget<Bitmap>(480,640) {
