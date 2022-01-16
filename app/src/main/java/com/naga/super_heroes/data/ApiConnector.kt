@@ -29,11 +29,11 @@ class ApiConnector() {
                         }.build())
                     }
                     .also { client ->
-                    if (BuildConfig.DEBUG) {
+                    /*if (BuildConfig.DEBUG) {
                         val loggin = HttpLoggingInterceptor()
                         loggin.setLevel(HttpLoggingInterceptor.Level.BODY)
                         client.addInterceptor(loggin)
-                    }
+                    }*/
                 }.build()
             )
             .addConverterFactory(GsonConverterFactory.create())

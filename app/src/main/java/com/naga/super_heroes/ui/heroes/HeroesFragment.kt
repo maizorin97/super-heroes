@@ -38,8 +38,8 @@ class HeroesFragment : BaseFragment<HeroesViewModel, FragmentHeroesBinding, Hero
     }
 
     private var page = 1
-    private var isLoading = false
-    private var limit = 10
+    var isLoading = false
+    private var limit = 5
 
     lateinit var listAdapter: HeroesAdapter
     lateinit var layoutManager: LinearLayoutManager
@@ -47,28 +47,29 @@ class HeroesFragment : BaseFragment<HeroesViewModel, FragmentHeroesBinding, Hero
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (runOnce) runOnce = false else return
-
         initRecyclerView()
 
-        viewModel.getHeroList(1,10)
+        if (viewModel.heroList.isEmpty()) {
+            Log.e("HEROLIST","La lista esta vacia mi pana!")
+            viewModel.getHeroList(1,limit)
 
-        viewModel.heroes.observe(viewLifecycleOwner, Observer {
-            when(it) {
-                is Resource.Success -> {
-                    for (i in 0 until limit) {
-                        viewModel.heroList.add(it.value[i])
-                        listAdapter.notifyDataSetChanged()
+            viewModel.heroes.observe(viewLifecycleOwner, Observer {
+                when(it) {
+                    is Resource.Success -> {
+                        for (i in 0 until limit) {
+                            viewModel.heroList.add(it.value[i])
+                            listAdapter.notifyDataSetChanged()
+                        }
+                        isLoading = false
+                        binding.progressBar.visibility = View.GONE
                     }
-                    isLoading = false
-                    binding.progressBar.visibility = View.GONE
+                    is Resource.Loading -> {
+                        isLoading = true
+                        binding.progressBar.visibility = View.VISIBLE
+                    }
                 }
-                is Resource.Loading -> {
-                    isLoading = true
-                    binding.progressBar.visibility = View.VISIBLE
-                }
-            }
-        })
+            })
+        }
     }
 
     fun initRecyclerView() {
@@ -93,11 +94,13 @@ class HeroesFragment : BaseFragment<HeroesViewModel, FragmentHeroesBinding, Hero
                     val visibleItemCount = layoutManager.childCount
                     val pastVisibleItems = layoutManager.findFirstCompletelyVisibleItemPosition()
                     val totalItems = listAdapter.itemCount
-
                     if (!isLoading) {
                         if ((visibleItemCount + pastVisibleItems) >= totalItems) {
                             page++
-                            viewModel.getHeroList((page-1)*limit+1,page*limit)
+                            val init = (page-1)*limit+1
+                            val end = page*limit
+                            Log.d("SACANDO HEROES","Pagina:$page [$init-$end]")
+                            viewModel.getHeroList(init, end)
                         }
                     }
 

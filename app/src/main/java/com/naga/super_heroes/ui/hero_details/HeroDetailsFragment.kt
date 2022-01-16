@@ -67,8 +67,10 @@ class HeroDetailsFragment : BaseFragment<HeroDetailsViewModel, FragmentHeroDetai
             statDurability.setProgressSafe(hero.powerStats.durability)
             statPower.setProgressSafe(hero.powerStats.power)
             statCombat.setProgressSafe(hero.powerStats.combat)
-            tvBiography.text = "${hero.biography.fullName} also kwon as ${hero.biography.alterEgos}" +
-                    "was born in ${hero.biography.placeOfBirth}"
+            tvBiography.text = "${hero.biography.fullName} also kwon as ${hero.biography.alterEgos}, " +
+                    "was born in ${hero.biography.placeOfBirth}, have as principal alianses charachters like ${hero.biography.aliases}, " +
+                    "it had its first appearence in ${hero.biography.firstAppearance} by ${hero.biography.publisher}."
+
         }
 
         Glide.with(requireContext())

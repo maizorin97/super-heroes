@@ -11,13 +11,11 @@ import androidx.viewbinding.ViewBinding
 import com.naga.super_heroes.data.ApiConnector
 import com.naga.super_heroes.data.repository.BaseRepository
 
-abstract class BaseFragment<VM: BaseViewModel, B: ViewBinding, R: BaseRepository> : Fragment() {
+abstract class  BaseFragment<VM: BaseViewModel, B: ViewBinding, R: BaseRepository> : Fragment() {
 
     protected lateinit var binding: B
     protected lateinit var viewModel: VM
     protected val remoteDataSource = ApiConnector()
-    private var rootView: View? = null
-    var runOnce = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,13 +23,9 @@ abstract class BaseFragment<VM: BaseViewModel, B: ViewBinding, R: BaseRepository
         savedInstanceState: Bundle?
     ): View? {
         binding = getFragmentBinding(inflater, container)
-        if(rootView == null) {
-            val factory = ViewModelFactory(getFragmentRepository())
-            viewModel = ViewModelProvider(this, factory)[getViewModel()]
-            rootView = binding.root
-            return binding.root
-        }
-        return rootView
+        val factory = ViewModelFactory(getFragmentRepository())
+        viewModel = ViewModelProvider(this, factory)[getViewModel()]
+        return binding.root
     }
 
     abstract fun getViewModel(): Class<VM>
