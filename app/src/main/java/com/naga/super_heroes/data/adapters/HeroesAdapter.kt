@@ -2,6 +2,7 @@ package com.naga.super_heroes.data.adapters
 
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +19,7 @@ import com.naga.super_heroes.data.models.Hero
 import com.naga.super_heroes.data.models.HeroLite
 
 class HeroesAdapter(
-    private var heroesList: ArrayList<HeroLite>,
+    private var heroesList: MutableList<HeroLite>,
     var listener: OnItemClickListener
 ): RecyclerView.Adapter<HeroesAdapter.ViewHolder>() {
 

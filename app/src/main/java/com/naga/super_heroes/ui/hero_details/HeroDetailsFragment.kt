@@ -19,6 +19,7 @@ import com.naga.super_heroes.data.Resource
 import com.naga.super_heroes.data.interfaces.HeroApi
 import com.naga.super_heroes.data.models.Hero
 import com.naga.super_heroes.data.repository.HeroRepository
+import com.naga.super_heroes.data.repository.setProgressSafe
 import com.naga.super_heroes.databinding.FragmentHeroDetailsBinding
 import com.naga.super_heroes.globals.Globals
 import com.naga.super_heroes.ui.base.BaseFragment
@@ -60,12 +61,12 @@ class HeroDetailsFragment : BaseFragment<HeroDetailsViewModel, FragmentHeroDetai
         with(binding) {
             tvHeroName.text = hero.name
             tvHeroId.text = "#${hero.id}"
-            statIntelligence.progress = hero.powerStats.intelligence.toInt()
-            statStrength.progress = hero.powerStats.strength.toInt()
-            statSpeed.progress = hero.powerStats.speed.toInt()
-            statDurability.progress = hero.powerStats.durability.toInt()
-            statPower.progress = hero.powerStats.power.toInt()
-            statCombat.progress = hero.powerStats.combat.toInt()
+            statIntelligence.setProgressSafe(hero.powerStats.intelligence)
+            statStrength.setProgressSafe(hero.powerStats.strength)
+            statSpeed.setProgressSafe(hero.powerStats.speed)
+            statDurability.setProgressSafe(hero.powerStats.durability)
+            statPower.setProgressSafe(hero.powerStats.power)
+            statCombat.setProgressSafe(hero.powerStats.combat)
             tvBiography.text = "${hero.biography.fullName} also kwon as ${hero.biography.alterEgos}" +
                     "was born in ${hero.biography.placeOfBirth}"
         }

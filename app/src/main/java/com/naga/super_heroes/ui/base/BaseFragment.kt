@@ -1,6 +1,7 @@
 package com.naga.super_heroes.ui.base
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,8 @@ abstract class BaseFragment<VM: BaseViewModel, B: ViewBinding, R: BaseRepository
     protected lateinit var binding: B
     protected lateinit var viewModel: VM
     protected val remoteDataSource = ApiConnector()
+    private var rootView: View? = null
+    var runOnce = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -22,9 +25,13 @@ abstract class BaseFragment<VM: BaseViewModel, B: ViewBinding, R: BaseRepository
         savedInstanceState: Bundle?
     ): View? {
         binding = getFragmentBinding(inflater, container)
-        val factory = ViewModelFactory(getFragmentRepository())
-        viewModel = ViewModelProvider(this, factory).get(getViewModel())
-        return binding.root
+        if(rootView == null) {
+            val factory = ViewModelFactory(getFragmentRepository())
+            viewModel = ViewModelProvider(this, factory)[getViewModel()]
+            rootView = binding.root
+            return binding.root
+        }
+        return rootView
     }
 
     abstract fun getViewModel(): Class<VM>

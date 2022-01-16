@@ -18,9 +18,11 @@ class HeroesViewModel(
         get() = _heroes
 
     fun getHeroList(init:Int, end:Int) = viewModelScope.launch {
-
         _heroes.value = Resource.Loading
         _heroes.value = repository.getHeroList(init, end)
-
     }
+
+    val heroList: MutableList<HeroLite> = ArrayList()
+
+
 }
